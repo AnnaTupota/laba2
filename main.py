@@ -56,5 +56,4 @@ async def with_puree(message: types.Message):
 @dp.message_handler(Text(equals="прекрасный препод Артемий Андреевич"))
 async def with_puree(message: types.Message):
     await message.reply("извините, временные неполадки, надо чутка код починить...")
-if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
+
