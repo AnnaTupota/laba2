@@ -6,7 +6,7 @@ from aiogram.utils import executor
 from aiogram.dispatcher.filters import Text
 TOKEN = "6080032473:AAEUUDw0cB_r8ppZ0I28-o7x_mH44jkUIDs"
 bot = Bot(token=TOKEN)#создадим экземпляр класса Bot, передав ему в качестве аргумента наш токен
-dp = Dispatcher(bot)#экземпляр класса Dispatcher (dp), который в качестве аргумента получит bot
+dp = Dispatcher(bot)#экземпляр класса Dispatcher (dp), который в качестве аргумента получит bot, принимает все апдейты и обрабатывает их.
 
 @dp.message_handler(commands=['start'])
 #Декоратор — это «обёртка» вокруг функций, позволяющая влиять на их работу без изменения кода самих функций. В нашем случае мы управляем функцией, считая команды пользователя;
@@ -27,9 +27,16 @@ async def with_puree1(message: types.Message):
     await message.reply("Отличный выбор!")
         # Ищем мотивационную картинку в сети интернет
             #response = requests.get('https://source.unsplash.com/random/1920x1080/?motivation')
-    response = requests.get('https://source.unsplash.com/featured/?motivation')
+    response = requests.get('https://source.unsplash.com/featured/?motivation')# отправляем запрос методом Get на данный адрес и получаем ответ в переменную
+        #Метод GET указывает на то, что происходит попытка извлечь данные из определенного ресурса. Для того, чтобы выполнить запрос GET, используется requests.get().
         # Отправляем картинку пользователю
-    photo = io.BytesIO(response.content)
+    photo = io.BytesIO(response.content)#Атрибут Response.content возвращает содержание ответа сервера, представленное в байтах.
+    #Объект ответа сервера requests.Response генерируется после того, как библиотека requests получают ответ от сервера.
+    # Объект ответа Response содержит всю информацию, возвращаемую сервером, а также объект запроса, который создали изначально.
+    #Веб-очистка - это метод извлечения данных с веб-сайта и использования этих данных для других целей.
+    #Здесь мы можем хранить наши данные в виде байтов
+    #Мы можем получить экземпляр байтового потока с помощью конструктора:
+
     await bot.send_photo(message.chat.id, photo)
 
 @dp.message_handler(lambda message: message.text == "хочу поболтать")
